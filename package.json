@@ -1,0 +1,35 @@
+{
+  "name": "@theonlyamos/appsync-subscriber",
+  "version": "0.0.1",
+  "description": "A Node.js module for subscribing to AWS AppSync real-time subscriptions",
+  "main": "appsync-subscriber.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "files": [
+    "*"
+  ],
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theonlyamos/appsync-subscriber.git"
+  },
+  "keywords": [
+    "appsync",
+    "subscription",
+    "realtime",
+    "aws"
+  ],
+  "author": "Amos Amissah <theonlyamos@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/theonlyamos/appsync-subscriber/issues"
+  },
+  "homepage": "https://github.com/theonlyamos/appsync-subscriber#readme",
+  "dependencies": {
+    "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
