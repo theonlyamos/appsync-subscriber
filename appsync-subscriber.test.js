@@ -34,7 +34,10 @@ describe('AppSyncSubscriber', () => {
       name
     }
   }`;
-  AppSyncSubscriber.configure(endpoint,apiKey)
+  AppSyncSubscriber.configure({
+    endpoint, 
+    apiKey
+})
 
   afterEach(() => {
     jest.clearAllMocks(); 
@@ -93,13 +96,12 @@ describe('AppSyncSubscriber', () => {
   });
 
   it('should disconnect gracefully', () => {
-    AppSyncSubscriber.configure(endpoint,apiKey)
     const subscriber = AppSyncSubscriber.graphql({ 
       query: subscriptionQuery 
     }).subscribe({ next: () => {}, error: () => {} });
     const mockWs = subscriber.ws;;
 
-    subscriber.disconnect();
+    subscriber.unsubscribe();
     expect(mockWs.close).toHaveBeenCalled();
   });
 });
