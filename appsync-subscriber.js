@@ -7,6 +7,7 @@ class AppSyncSubscriber {
   static appSyncRealtimeEndpoint;
   static appSyncEndpoint;
   static apiKey;
+  static verbose;
 
   
   constructor() {
@@ -23,11 +24,13 @@ class AppSyncSubscriber {
    * @param {Object} appsyncConfiguration - The AppSync Configuration.
    * @param {string} [appsyncConfiguration.endpoint] - The AppSync GraphQL endpoint URL.
    * @param {string} [appsyncConfiguration.apiKey] - The AppSync API key.
+   * @param {Boolean} [appsyncConfiguration.verbose] - Turn verbosity on or off
    */
   static configure(appsyncConfiguration) {
     AppSyncSubscriber.appSyncEndpoint = appsyncConfiguration?.endpoint
-    AppSyncSubscriber.appSyncRealtimeEndpoint = appsyncConfiguration?.endpoint.replace('http', 'ws').replace('api', 'realtime-api');
+    AppSyncSubscriber.appSyncRealtimeEndpoint = appsyncConfiguration?.endpoint?.replace('http', 'ws').replace('api', 'realtime-api');
     AppSyncSubscriber.apiKey = appsyncConfiguration?.apiKey;
+    AppSyncSubscriber.verbose = appsyncConfiguration?.verbose || false;
   }
 
   /**
@@ -98,7 +101,7 @@ class AppSyncSubscriber {
     const payloadBase64 = Buffer.from(JSON.stringify(payload)).toString('base64');
 
     this.ws = new WebSocket(
-      `${AppSyncSubscriber.appSyncRealtimeEndpoint}?header=${headerBase64}&payload=${payloadBase64}`, // Use static property
+      `${AppSyncSubscriber.appSyncRealtimeEndpoint}?header=${headerBase64}&payload=${payloadBase64}`,
       'graphql-ws'
     );
 
@@ -108,7 +111,7 @@ class AppSyncSubscriber {
     });
 
     this.ws.on('message', (message) => {
-      const messageString = message.toString(); // Directly convert to string
+      const messageString = message.toString();
       const msg = JSON.parse(messageString);
 
       if (msg?.type === 'connection_ack') {
@@ -125,8 +128,14 @@ class AppSyncSubscriber {
       this.onError(error); 
     });
 
+    this.ws.on('open', () => {
+      if (AppSyncSubscriber.verbose)
+        console.log('AppSync WebSocket Opened');
+    });
+
     this.ws.on('close', () => {
-      console.log('AppSync WebSocket closed');
+      if (AppSyncSubscriber.verbose)
+        console.log('AppSync WebSocket Closed');
     });
     
     return this; 
