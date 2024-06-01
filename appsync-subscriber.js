@@ -146,7 +146,8 @@ class AppSyncSubscriber {
    */
   unsubscribe() {
     if (this.ws) {
-      this.ws.send(JSON.stringify({ type: "stop" }))
+      if (this.ws.readyState)
+        this.ws.send(JSON.stringify({ type: "stop" }))
       this.ws.close();
     }
   }
