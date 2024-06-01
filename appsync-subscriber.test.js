@@ -99,6 +99,7 @@ describe('AppSyncSubscriber', () => {
     const subscriber = AppSyncSubscriber.graphql({ 
       query: subscriptionQuery 
     }).subscribe({ next: () => {}, error: () => {} });
+    subscriber.ws.readyState = 1
     const mockWs = subscriber.ws;;
 
     subscriber.unsubscribe();
