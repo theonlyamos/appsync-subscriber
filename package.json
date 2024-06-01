@@ -1,6 +1,6 @@
 {
   "name": "@theonlyamos/appsync-subscriber",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Node.js module for subscribing to AWS AppSync real-time subscriptions",
   "main": "appsync-subscriber.js",
   "scripts": {
@@ -18,7 +18,12 @@
     "appsync",
     "subscription",
     "realtime",
-    "aws"
+    "aws",
+    "appsync",
+    "graphql",
+    "backend",
+    "node",
+    "express"
   ],
   "author": "Amos Amissah <theonlyamos@gmail.com>",
   "license": "Apache-2.0",
