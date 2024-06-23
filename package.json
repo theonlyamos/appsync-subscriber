@@ -1,6 +1,6 @@
 {
-  "name": "@theonlyamos/appsync-subscriber",
-  "version": "0.0.5",
+  "name": "node-appsync-subscriber",
+  "version": "0.0.6",
   "description": "A Node.js module for subscribing to AWS AppSync real-time subscriptions",
   "main": "appsync-subscriber.js",
   "scripts": {
